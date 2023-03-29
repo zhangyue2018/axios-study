@@ -1,0 +1,39 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "id": 2,
+      "title": "tody",
+      "author": "zz"
+    },
+    {
+      "title": "今天天气好",
+      "author": "yy",
+      "id": 4
+    },
+    {
+      "title": "今天天气好",
+      "author": "yy",
+      "id": 5
+    },
+    {
+      "title": "今天天气好",
+      "author": "yy",
+      "id": 6
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
