@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link crossorigin="anonymous" rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h2 class="page-header">基本使用</h2>
+        <button class="btn btn-primary">发送GET请求</button>
+    </div>
+    <script>
+        const btns = document.querySelectorAll('button');
+
+        
+
+        btns[0].onclick = function() {
+            const instance = axios.create({
+                method: 'GET',
+                baseURL: 'http://127.0.0.1:3000',
+            });
+
+            instance.defaults.timeout = 4000;
+            instance.defaults.params = {id: 200};
+
+            instance({
+                url: '/comments'
+            }).then(res => console.log(res));
+        }
+
+    </script>
+</body>
+</html>
