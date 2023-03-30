@@ -28,9 +28,16 @@
   ],
   "comments": [
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "data": {
+        "body": "今天天气好",
+        "postId": 1
+      },
+      "id": 1
+    },
+    {
+      "body": "喜大普奔",
+      "postId": 2,
+      "id": 2
     }
   ],
   "profile": {
