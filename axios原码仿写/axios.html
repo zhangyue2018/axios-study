@@ -19,14 +19,58 @@
         }
 
         // 原型添加相关方法
+        // 发送请求
         Axios.prototype.request = function(config) {
             console.log('发送AJAX请求 请求类型为' + config.method);
+            // 创建一个promise对象
+            let promise = Promise.resolve(config);
+            let chains = [dispatchRequest, undefined];
+            // 调用then方法指定回调
+            let result = promise.then(chains[0], chains[1]);
+            return result;
         }
         Axios.prototype.get = function(config) {
             return this.request({method: "GET"});
         }
         Axios.prototype.post = function(config) {
             return this.request({method: "POST"});
+        }
+
+        // 2. dispatchRequest函数
+        function dispatchRequest(config) {
+            return xhrAdapter(config).then(function(data) {
+                // 响应结果进行转换处理
+                return data;
+            }, function(err) {
+                throw err;
+            });
+        }
+
+        // 3. adapter适配器
+        function xhrAdapter(config) {
+            return new Promise(function(resolve, reject) {
+                let x = new XMLHttpRequest();
+                x.open(config.method, config.url);
+                x.send(config.data);
+
+                x.onreadystatechange = function() {
+                    
+                    if(x.readyState === 4) {
+                        if(x.status >= 200 && x.status < 300) {
+                            resolve({
+                                config: config,
+                                data: x.response,
+                                headers: x.getAllResponseHeaders(), // 字符串 parseHeaders
+                                request: x,
+                                status: x.status,
+                                statusText: x.statusText
+                            });
+                        } else {
+                            reject(new Error('请求失败 失败的状态码为' + x.status));
+                        }
+                    }
+                }
+            });
         }
 
 
@@ -53,7 +97,14 @@
         // axios({method: 'GET'});
         // axios({method: 'POST'});
         // axios.get();
-        axios.post();
+        // axios.post();
+
+        axios({
+            method: 'get',
+            url: 'http://localhost:3000/posts',
+        }).then(res => {
+            console.log('--------', res);
+        });
     </script>
 </body>
 </html>
